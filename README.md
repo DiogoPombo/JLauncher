@@ -10,7 +10,8 @@ A Java application launcher for Windows, built with Batch Script, that makes it 
 - Error handling for missing files, user cancellation, and more.
 📂 Project Structure
 JLauncher/
- ├── JLauncher.bat           # Main script
+ ├── JLauncher.cmd           # Main script
+ ├── LAUNCHER.CMD            # Script containing the execution logic.
  ├── filelocation.ps1        # PowerShell script for file selection
  ├── play.vbs                # Auxiliary script for sound/effects
  ├── arquivo_selecionado.txt # Stores last selected .jar path
