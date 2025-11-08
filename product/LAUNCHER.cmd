@@ -239,12 +239,14 @@ color 07
 echo.
 
 if "%1"=="-m" (
-    call %MATRIX%
+    COLOR 0A
 ) else if "%1"=="-M" (
-    call %MATRIX%
+    COLOR 0A
+) else if "%1"=="-b" (
+    COLOR 0B
+) else if "%1"=="-B" (
+    COLOR 0B
 )
-
-@title %APPNM%
 
 set "LINE=************************** %APPNM% **************************"
 set "LENLINE=0"
