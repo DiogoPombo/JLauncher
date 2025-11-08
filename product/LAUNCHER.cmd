@@ -226,6 +226,7 @@ timeout /t 5 /nobreak >nul
 timeout /t 0 /nobreak >nul
 timeout /t 0 /nobreak >nul
 timeout /t 0 /nobreak >nul
+timeout /t 0 /nobreak >nul
 color 0A
 timeout /t 0 /nobreak >nul
 color 0B
