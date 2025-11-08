@@ -1,6 +1,6 @@
-::
-::Author: Diogo Santos Pombo - \Õ/ - @2025
-::
+:: -----------------------------------------::
+:: Author: Diogo Santos Pombo - \Õ/ - @2025 ::
+:: -----------------------------------------::
 
 @echo off
 setlocal enabledelayedexpansion
@@ -52,7 +52,7 @@ set "APPNM=JLauncher"
 set "BASE=%~dp0"
 set "SOM=%BASE%play.vbs"
 set "ps1script=%BASE%filelocation.ps1"
-
+set "MATRIX=%BASE%MATRIX.cmd"
 set "APP_URL="
 set "CONFIG_FILE=arquivo_selecionado.txt"
 set "NAME_FILE=nome_jar.txt"
@@ -237,6 +237,14 @@ timeout /t 0 /nobreak >nul
 timeout /t 0 /nobreak >nul
 color 07
 echo.
+
+if "%1"=="-m" (
+    call %MATRIX%
+) else if "%1"=="-M" (
+    call %MATRIX%
+)
+
+@title %APPNM%
 
 set "LINE=************************** %APPNM% **************************"
 set "LENLINE=0"
