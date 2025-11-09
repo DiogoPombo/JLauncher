@@ -6,7 +6,18 @@
 
 setlocal
 
-set "BASESCRIPTFILE=%~dp0\jlscripts\"
+java -version >nul 2>&1
+if not %errorlevel%==0 (
+    COLOR 0C
+    echo ============================================================
+    echo [ERROR] Java not found.
+    echo Please install Java before running JLauncher!
+    echo ============================================================
+    timeout /t 5 /nobreak >nul
+    goto end
+)
+
+set "BASESCRIPTFILE=%~dp0\JLS\"
 
 cd %BASESCRIPTFILE%
 
@@ -22,6 +33,7 @@ if "%1"=="-m" (
 
 call "%BASESCRIPTFILE%LAUNCHER.cmd"
 
+:end
 endlocal
 
 exit
