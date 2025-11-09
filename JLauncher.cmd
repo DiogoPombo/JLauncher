@@ -1,12 +1,12 @@
-:: -----------------------------------------::
+::------------------------------------------::
 :: Author: Diogo Santos Pombo - \Õ/ - @2025 ::
-:: -----------------------------------------::
+::------------------------------------------::
 
 @echo off
 
 setlocal
 
-set "BASESCRIPTFILE=%~dp0\product\"
+set "BASESCRIPTFILE=%~dp0\jlscripts\"
 
 cd %BASESCRIPTFILE%
 
