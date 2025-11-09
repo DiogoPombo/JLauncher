@@ -266,7 +266,7 @@ for /l %%i in (1,1,%PAD2%) do set "SPACES2=!SPACES2! "
 echo !SPACES2!!LINE!
 
 start "" /b java -jar "%JAVA_FILE_PATH%"
-timeout /t 5 /nobreak >nul
+timeout /t 10 /nobreak >nul
 
 if not "!APP_URL!"=="" (
     start "" "!APP_URL!"
