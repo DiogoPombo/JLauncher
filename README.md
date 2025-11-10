@@ -8,6 +8,8 @@ A Java application launcher for Windows, built with Batch Script, that makes it 
 - Execution logs stored in launcher.log.
 - Console visual effects (colors, banners, animations).
 - Error handling for missing files, user cancellation, and more.
+
+  
 📂 Project Structure
 JLauncher/
  ├── JLauncher.cmd           # Main script
