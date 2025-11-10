@@ -164,14 +164,9 @@ for %%c in (%colors%) do (
     ping -n 1 127.0.0.1 >nul
 )
 
-:: Robust parsing for console dimensions (handles variable spacing in Win10/PT-BR)
-for /f "tokens=1* delims=:" %%a in ('mode con ^| findstr /i "Colunas"') do set "COLS=%%b"
-for /f "tokens=1* delims=:" %%a in ('mode con ^| findstr /i "Linhas"') do set "LINS=%%b"
-set "COLS=%COLS: =%"
-set "LINS=%LINS: =%"
-:: Fallback to safe defaults if parsing fails
-if "%COLS%"=="" set "COLS=120"
-if "%LINS%"=="" set "LINS=30"
+:: Language-independent parsing for console dimensions using PowerShell
+for /f %%a in ('powershell -command "$Host.UI.RawUI.WindowSize.Width"') do set COLS=%%a
+for /f %%a in ('powershell -command "$Host.UI.RawUI.WindowSize.Height"') do set LINS=%%a
 
 set /a LEN=75
 set /a ALT=5
@@ -256,7 +251,7 @@ if "%1"=="-m" (
 )
 
 set "LINE=************************** %APPNM% **************************"
-set "LENLINE=0"
+set "LENLINE=0
 for /l %%i in (0,1,200) do (
     if "!LINE:~%%i,1!"=="" (
         set /a LENLINE=%%i

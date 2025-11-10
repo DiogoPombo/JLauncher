@@ -164,10 +164,9 @@ for %%c in (%colors%) do (
     timeout /t 0 /nobreak >nul
 )
 
-for /f "tokens=2 delims=:" %%a in ('mode con ^| find "Colunas"') do set COLS=%%a
-for /f "tokens=2 delims=:" %%a in ('mode con ^| find "Linhas"') do set LINS=%%a
-set COLS=%COLS: =%
-set LINS=%LINS: =%
+:: Language-independent parsing for console dimensions using PowerShell
+for /f %%a in ('powershell -command "$Host.UI.RawUI.WindowSize.Width"') do set COLS=%%a
+for /f %%a in ('powershell -command "$Host.UI.RawUI.WindowSize.Height"') do set LINS=%%a
 
 set /a LEN=75
 set /a ALT=5

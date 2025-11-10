@@ -19,15 +19,35 @@ if not %errorlevel%==0 (
 
 set "BASESCRIPTFILE=%~dp0\JLS\"
 
-cd %BASESCRIPTFILE%
+if not exist "%BASESCRIPTFILE%" (
+    echo [ERROR] Pasta JLS nao encontrada: %BASESCRIPTFILE%
+    timeout /t 5 /nobreak >nul
+    goto end
+)
+
+cd /d "%BASESCRIPTFILE%"
 
 
 set "ORIGINAL_LAUNCHER=%BASESCRIPTFILE%LAUNCHER.cmd"
 set "CORRECTED_LAUNCHER=%BASESCRIPTFILE%LAUNCHERW10.cmd"
 
 
-for /f "tokens=2 delims=:" %%i in ('wmic os get BuildNumber /value ^| find "="') do set "BUILD=%%i"
+if not exist "%ORIGINAL_LAUNCHER%" (
+    echo [ERROR] LAUNCHER.cmd not found at: %ORIGINAL_LAUNCHER%
+    timeout /t 5 /nobreak >nul
+    goto end
+)
+if not exist "%CORRECTED_LAUNCHER%" (
+    echo [ERROR] LAUNCHERW10.cmd not found at: %CORRECTED_LAUNCHER%
+    timeout /t 5 /nobreak >nul
+    goto end
+)
+
+
+
+for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value 2^>nul ^| findstr /b /c:"BuildNumber="') do set "BUILD=%%i"
 set "BUILD=%BUILD: =%"
+if "%BUILD%"=="" set "BUILD=0"
 set "WINDOWS_VERSION=Win10"
 
 if %BUILD% GEQ 22000 (
