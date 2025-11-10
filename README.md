@@ -12,6 +12,7 @@ A Java application launcher for Windows, built with Batch Script, that makes it 
 JLauncher/
  ├── JLauncher.cmd           # Main script
  ├── LAUNCHER.CMD            # Script containing the execution logic.
+ ├── LAUNCHERW10.CMD         # Script containing the execution logic for old Windows versions.
  ├── filelocation.ps1        # PowerShell script for file selection
  ├── play.vbs                # Auxiliary script for sound/effects
  ├── arquivo_selecionado.txt # Stores last selected .jar path
