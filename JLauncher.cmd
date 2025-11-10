@@ -20,7 +20,7 @@ if not %errorlevel%==0 (
 set "BASESCRIPTFILE=%~dp0\JLS\"
 
 if not exist "%BASESCRIPTFILE%" (
-    echo [ERROR] Pasta JLS nao encontrada: %BASESCRIPTFILE%
+    echo [ERROR] Folder JLS not found: %BASESCRIPTFILE%
     timeout /t 5 /nobreak >nul
     goto end
 )
