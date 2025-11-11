@@ -5,7 +5,22 @@
 @echo off
 setlocal enabledelayedexpansion
 
+set MODE=%1
+shift
 
+:: Pula as sub-rotinas para evitar execução prematura (clássico bug batch)
+goto :main
+
+:: Sub-rotina para pausas zero/zero (reutilizável para evitar duplicação)
+:pause_zero
+if "%MODE%"=="-win11" (
+    timeout /t 0 /nobreak >nul
+) else (
+    ping -n 1 127.0.0.1 >nul
+)
+goto :eof
+
+:main
 for /f "tokens=3" %%I in ('reg query "HKEY_CURRENT_USER\Control Panel\International" /v LocaleName') do set "LANGUAGE=%%I"
 set "LANG_PREFIX=%LANGUAGE:~0,2%"
 if /i "%LANG_PREFIX%"=="pt" (
@@ -13,7 +28,6 @@ if /i "%LANG_PREFIX%"=="pt" (
 ) else (
     set "IDIOMA=EN"
 )
-
 
 if "%IDIOMA%"=="PT" (
     set "MSG_CANCELLED=Usuario cancelou a selecao."
@@ -84,7 +98,6 @@ if not exist "%CONFIG_FILE%" (
 
 set /p ARQUIVO=<"%CONFIG_FILE%"
 echo %MSG_FILE_CHOSEN%!ARQUIVO!
-
 
 for /f "tokens=* usebackq" %%i in (`powershell -Command "Add-Type -AssemblyName System.Windows.Forms; $result = [System.Windows.Forms.MessageBox]::Show('%MSG_NEEDS_URL%', '%MSG_NEEDS_URL_TITLE%', [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question); if ($result -eq [System.Windows.Forms.DialogResult]::Yes) { 'True' } else { 'False' }"`) do set "NEEDS_URL=%%i"
 
@@ -160,7 +173,7 @@ set colors=00 80 70 F0
 timeout /t 2 /nobreak >nul
 for %%c in (%colors%) do (
     color %%c
-    timeout /t 0 /nobreak >nul
+    call :pause_zero
 )
 
 :: Language-independent parsing for console dimensions using PowerShell
@@ -175,6 +188,7 @@ set "SPACES="
 for /l %%i in (1,1,%PAD%) do set "SPACES=!SPACES! "
 
 set /a PADV=(LINS - ALT) / 2
+if "%MODE%"=="-win10" if %PADV% GTR 20 set /a PADV=20
 
 set "L1=*****************************************************************************"
 set "L2=*                                                                           *"
@@ -204,7 +218,7 @@ set "L3=!L3!!SPACESRIGHT!*"
 
 set "L4=*                                                                           *"
 
-timeout /t 0 /nobreak >nul
+call :pause_zero
 for %%c in (%colors2%) do (
     color %%c
     cls
@@ -217,23 +231,29 @@ for %%c in (%colors2%) do (
     echo !SPACES!!L4!
     echo !SPACES!!L1!
 
-    timeout /t 0 /nobreak >nul
+    call :pause_zero
 )
 
-timeout /t 5 /nobreak >nul
-timeout /t 0 /nobreak >nul
-timeout /t 0 /nobreak >nul
-timeout /t 0 /nobreak >nul
-timeout /t 0 /nobreak >nul
+:: Pausa final da animação (exata como nos originais: ~5s Win11 vs ~10s Win10)
+if "%MODE%"=="-win11" (
+    timeout /t 5 /nobreak >nul
+) else (
+    timeout /t 6 /nobreak >nul
+)
+call :pause_zero
+call :pause_zero
+call :pause_zero
+call :pause_zero
+
 color 0A
-timeout /t 0 /nobreak >nul
+call :pause_zero
 color 0B
-timeout /t 0 /nobreak >nul
+call :pause_zero
 color 0F
 cls
-timeout /t 0 /nobreak >nul
-timeout /t 0 /nobreak >nul
-timeout /t 0 /nobreak >nul
+call :pause_zero
+call :pause_zero
+call :pause_zero
 color 07
 echo.
 
@@ -269,8 +289,6 @@ timeout /t 10 /nobreak >nul
 if not "!APP_URL!"=="" (
     start "" "!APP_URL!"
 )
-
-
 
 :end
 echo.

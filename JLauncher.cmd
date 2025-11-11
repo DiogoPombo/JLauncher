@@ -27,23 +27,13 @@ if not exist "%BASESCRIPTFILE%" (
 
 cd /d "%BASESCRIPTFILE%"
 
+set "LAUNCHERCORE=%BASESCRIPTFILE%LAUNCHERCORE.cmd"
 
-set "ORIGINAL_LAUNCHER=%BASESCRIPTFILE%LAUNCHER.cmd"
-set "CORRECTED_LAUNCHER=%BASESCRIPTFILE%LAUNCHERW10.cmd"
-
-
-if not exist "%ORIGINAL_LAUNCHER%" (
-    echo [ERROR] LAUNCHER.cmd not found at: %ORIGINAL_LAUNCHER%
+if not exist "%LAUNCHERCORE%" (
+    echo [ERROR] LAUNCHERCORE.cmd not found at: %LAUNCHERCORE%
     timeout /t 5 /nobreak >nul
     goto end
 )
-if not exist "%CORRECTED_LAUNCHER%" (
-    echo [ERROR] LAUNCHERW10.cmd not found at: %CORRECTED_LAUNCHER%
-    timeout /t 5 /nobreak >nul
-    goto end
-)
-
-
 
 for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value 2^>nul ^| findstr /b /c:"BuildNumber="') do set "BUILD=%%i"
 set "BUILD=%BUILD: =%"
@@ -52,23 +42,22 @@ set "WINDOWS_VERSION=Win10"
 
 if %BUILD% GEQ 22000 (
     set "WINDOWS_VERSION=Win11+"
-    set "LAUNCHER_PATH=%ORIGINAL_LAUNCHER%"
+    set "VERSION_PARAM=-win11"
 ) else (
     set "WINDOWS_VERSION=Win10-"
-    set "LAUNCHER_PATH=%CORRECTED_LAUNCHER%"
+    set "VERSION_PARAM=-win10"
 )
 
-
 if "%1"=="-m" (
-    call "%LAUNCHER_PATH%" %1
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -m
 ) else if "%1"=="-M" (
-    call "%LAUNCHER_PATH%" %1
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -M
 ) else if "%1"=="-b" (
-    call "%LAUNCHER_PATH%" %1
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -b
 ) else if "%1"=="-B" (
-    call "%LAUNCHER_PATH%" %1
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -B
 ) else (
-    call "%LAUNCHER_PATH%"
+    call "%LAUNCHERCORE%" %VERSION_PARAM%
 )
 
 :end
