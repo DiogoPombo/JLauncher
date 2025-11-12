@@ -8,10 +8,10 @@ setlocal enabledelayedexpansion
 set MODE=%1
 shift
 
-:: Pula as sub-rotinas para evitar execução prematura (clássico bug batch)
+
 goto :main
 
-:: Sub-rotina para pausas zero/zero (reutilizável para evitar duplicação)
+
 :pause_zero
 if "%MODE%"=="-win11" (
     timeout /t 0 /nobreak >nul
@@ -65,6 +65,7 @@ set "APPNM=JLauncher"
 
 set "BASE=%~dp0"
 set "SOM=%BASE%play.vbs"
+set "SOM2=%BASE%play2.vbs"
 set "ps1script=%BASE%filelocation.ps1"
 set "APP_URL="
 set "CONFIG_FILE=arquivo_selecionado.txt"
@@ -167,10 +168,11 @@ echo %MSG_LOG_RUNNING%!CURRENT_NAME! >> launcher.log
 @title %APPNM%
 wscript.exe "%SOM%"
 
-set colors2=F7 F8 F0
+
+set colors2=F0
 set colors=00 80 70 F0
 
-timeout /t 2 /nobreak >nul
+timeout /t 0 /nobreak >nul
 for %%c in (%colors%) do (
     color %%c
     call :pause_zero
@@ -234,17 +236,18 @@ for %%c in (%colors2%) do (
     call :pause_zero
 )
 
-:: Pausa final da animação (exata como nos originais: ~5s Win11 vs ~10s Win10)
-if "%MODE%"=="-win11" (
-    timeout /t 5 /nobreak >nul
-) else (
-    timeout /t 6 /nobreak >nul
-)
-call :pause_zero
-call :pause_zero
-call :pause_zero
-call :pause_zero
 
+if "%MODE%"=="-win11" (
+    timeout /t 4 /nobreak >nul
+) else (
+    timeout /t 5 /nobreak >nul
+)
+:silent
+call :pause_zero
+call :pause_zero
+call :pause_zero
+call :pause_zero
+wscript.exe "%SOM2%"
 color 0A
 call :pause_zero
 color 0B
