@@ -1,3 +1,8 @@
+#--------------------------------------------#
+# JLauncher - Unified launcher for Java apps #
+#  Author: Diogo Santos Pombo - \Õ/ - @2025  #
+#--------------------------------------------#
+
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 

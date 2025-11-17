@@ -1,6 +1,7 @@
-::------------------------------------------::
-:: Author: Diogo Santos Pombo - \Õ/ - @2025 ::
-::------------------------------------------::
+::--------------------------------------------::
+:: JLauncher - Unified launcher for Java apps ::
+::  Author: Diogo Santos Pombo - \Õ/ - @2025  ::
+::--------------------------------------------::
 
 @echo off
 setlocal enabledelayedexpansion
@@ -32,17 +33,22 @@ if /i "%LANG_PREFIX%"=="pt" (
 if "%IDIOMA%"=="PT" (
     set "MSG_CANCELLED=Usuario cancelou a selecao."
     set "MSG_FILE_CHOSEN=Arquivo escolhido: "
-    set "MSG_NO_URL=URL nao fornecida."
-    set "MSG_SKIP_URL=Pulando configuracao de URL."
+    set "MSG_NO_URL=URL não fornecida."
+    set "MSG_SKIP_URL=Pulando configurção de URL."
     set "MSG_NEEDS_URL=Essa aplicacao precisa de uma URL para abrir no navegador?"
     set "MSG_NEEDS_URL_TITLE=Configuracao"
     set "MSG_URL_PROMPT=Digite a URL:"
     set "MSG_URL_TITLE=URL"
     set "MSG_DEFAULT_URL=http://localhost:8080"
-    set "MSG_ERROR_FILE_NOT_FOUND=[ERRO] Arquivo Java nao encontrado: "
+    set "MSG_ERROR_FILE_NOT_FOUND=[ERRO] Arquivo Java não encontrado: "
     set "MSG_LOG_RUNNING=[%date% %time%] Executando: "
     set "MSG_ANOTHER_LAUNCH=Deseja selecionar outro arquivo?"
     set "prompt=Insira uma URL"
+    set "MSG_DELAY_PROMPT=Quantos segundos leva para a aplicação subir?"
+    set "MSG_DELAY_TITLE=Tempo de Inicializacao"
+    set "MSG_DELAY_DEFAULT=10"
+    set "MSG_INVALID_DELAY=Entrada inválida. Digite apenas um número inteiro."
+    set "MSG_INVALID_DELAY_TITLE=Erro de Validacao"
 ) else (
     set "MSG_CANCELLED=User canceled the selection."
     set "MSG_FILE_CHOSEN=File chosen: "
@@ -57,12 +63,19 @@ if "%IDIOMA%"=="PT" (
     set "MSG_LOG_RUNNING=[%date% %time%] Running: "
     set "MSG_ANOTHER_LAUNCH=Do you want to select another file?"
     set "prompt=Insert URL"
+    set "MSG_DELAY_PROMPT=How many seconds does it take for the application to start?"
+    set "MSG_DELAY_TITLE=Startup Time"
+    set "MSG_DELAY_DEFAULT=10"
+    set "MSG_INVALID_DELAY=Invalid input. Please enter an integer number only."
+    set "MSG_INVALID_DELAY_TITLE=Validation Error"
 )
 
 :start
 set "APPNM=JLauncher"
 @title %APPNM%
 
+set "DELAY_SECONDS=10"
+set "DELAY_FILE=delay_seconds.txt"
 set "BASE=%~dp0"
 set "SOM=%BASE%play.vbs"
 set "SOM2=%BASE%play2.vbs"
@@ -110,18 +123,44 @@ if /I "!NEEDS_URL!"=="True" (
         echo %MSG_NO_URL%
         del "%CONFIG_FILE%" 2>nul
         del "%URL_FILE%" 2>nul
+        del "%DELAY_FILE%" 2>nul
         goto :end
     ) else (
         echo !APP_URL! > "%URL_FILE%"
+        :: Configurar delay se URL foi definida
+        call :ConfigurarDelay
     )
 ) else (
     echo %MSG_SKIP_URL%
     set "APP_URL="
     del "%URL_FILE%" 2>nul
+    del "%DELAY_FILE%" 2>nul
 )
 
 cls
 goto start
+
+:ConfigurarDelay
+:loop_delay
+for /f "tokens=* usebackq" %%i in (`powershell -Command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::InputBox('%MSG_DELAY_PROMPT%', '%MSG_DELAY_TITLE%', '%MSG_DELAY_DEFAULT%')"`) do set "INPUT_DELAY=%%i"
+if "!INPUT_DELAY!"=="" (
+    echo %MSG_NO_URL%
+    del "%CONFIG_FILE%" 2>nul
+    del "%URL_FILE%" 2>nul
+    del "%DELAY_FILE%" 2>nul
+    goto :end
+)
+for /f "tokens=* usebackq" %%i in (`powershell -Command "if ('!INPUT_DELAY!' -match '^\d+$') { 'Valid' } else { 'Invalid' } "`) do set "VALID_DELAY=%%i"
+if /I "!VALID_DELAY!"=="Invalid" (
+    for /f "tokens=* usebackq" %%i in (`powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('%MSG_INVALID_DELAY%', '%MSG_INVALID_DELAY_TITLE%', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning); Write-Output 1"`) do set "DUMMY=%%i"
+    goto loop_delay
+)
+set /a DELAY_SECONDS=!INPUT_DELAY! 2>nul
+if !DELAY_SECONDS! LEQ 0 (
+    set "DELAY_SECONDS=10"
+)
+echo !DELAY_SECONDS! > "%DELAY_FILE%"
+goto :eof
 
 :run
 for %%F in ("%JAVA_FILE_PATH%") do (
@@ -164,6 +203,10 @@ if not exist "%JAVA_FILE_PATH%" (
 )
 
 echo %MSG_LOG_RUNNING%!CURRENT_NAME! >> launcher.log
+
+if "%1"=="-s" (
+    goto silent) else if "%1"=="-S" (
+    goto silent)
 
 @title %APPNM%
 wscript.exe "%SOM%"
@@ -242,7 +285,7 @@ if "%MODE%"=="-win11" (
 ) else (
     timeout /t 5 /nobreak >nul
 )
-:silent
+
 call :pause_zero
 call :pause_zero
 call :pause_zero
@@ -285,9 +328,10 @@ set "SPACES2="
 for /l %%i in (1,1,%PAD2%) do set "SPACES2=!SPACES2! "
 
 echo !SPACES2!!LINE!
-
+:silent
+@title %APPNM%
 start "" /b java -jar "%JAVA_FILE_PATH%"
-timeout /t 10 /nobreak >nul
+timeout /t %DELAY_SECONDS% /nobreak >nul
 
 if not "!APP_URL!"=="" (
     start "" "!APP_URL!"

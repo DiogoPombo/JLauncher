@@ -1,6 +1,7 @@
-::------------------------------------------::
-:: Author: Diogo Santos Pombo - \Õ/ - @2025 ::
-::------------------------------------------::
+::--------------------------------------------::
+:: JLauncher - Unified launcher for Java apps ::
+::  Author: Diogo Santos Pombo - \Õ/ - @2025  ::
+::--------------------------------------------::
 
 @echo off
 
@@ -11,7 +12,7 @@ if not %errorlevel%==0 (
     COLOR 0C
     echo ============================================================
     echo [ERROR] Java not found.
-    echo Please install Java before running JLauncher!
+    echo Please install Java before running JLauncher.
     echo ============================================================
     timeout /t 5 /nobreak >nul
     goto end
@@ -48,7 +49,11 @@ if %BUILD% GEQ 22000 (
     set "VERSION_PARAM=-win10"
 )
 
-if "%1"=="-m" (
+if "%1"=="-s" (
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -s
+) else if "%1"=="-S" (
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -S
+) else if "%1"=="-m" (
     call "%LAUNCHERCORE%" %VERSION_PARAM% -m
 ) else if "%1"=="-M" (
     call "%LAUNCHERCORE%" %VERSION_PARAM% -M
@@ -63,4 +68,4 @@ if "%1"=="-m" (
 :end
 endlocal
 
-exit
+exit /b
