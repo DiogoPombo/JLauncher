@@ -13,13 +13,14 @@ A Java application launcher for Windows, built with Batch Script, that makes it 
 📂 Project Structure
 JLauncher/
  ├── JLauncher.cmd           # Main script
- ├── LAUNCHER.CMD            # Script containing the execution logic.
- ├── LAUNCHERW10.CMD         # Script containing the execution logic for old Windows versions.
+ ├── LAUNCHERCORE.CMD        # Script containing the execution logic.
  ├── filelocation.ps1        # PowerShell script for file selection
  ├── play.vbs                # Auxiliary script for sound/effects
+ ├── play2.vbs               # Auxiliary script for sound/effects
  ├── arquivo_selecionado.txt # Stores last selected .jar path
  ├── nome_jar.txt            # Stores last executed .jar name
  ├── url_config.txt          # Stores configured URL (if any)
+ ├── delay_seconds.txt       # Stores configured seconds to start browser with URL
  └── launcher.log            # Execution logs
 
 
