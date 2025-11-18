@@ -6,6 +6,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
+for /f "tokens=2 delims=: %%a in ('chcp') do set "original_cp=%%a"
+
+chcp 65001 > nul
+
 set MODE=%1
 shift
 
@@ -330,6 +334,7 @@ for /l %%i in (1,1,%PAD2%) do set "SPACES2=!SPACES2! "
 echo !SPACES2!!LINE!
 :silent
 @title %APPNM%
+chcp %original_cp% >nul
 start "" /b java -jar "%JAVA_FILE_PATH%"
 timeout /t %DELAY_SECONDS% /nobreak >nul
 
