@@ -35,12 +35,12 @@ if /i "%LANG_PREFIX%"=="pt" (
 )
 
 if "%IDIOMA%"=="PT" (
-    set "MSG_CANCELLED=Usuario cancelou a selecao."
+    set "MSG_CANCELLED=Usuario cancelou a seleção."
     set "MSG_FILE_CHOSEN=Arquivo escolhido: "
     set "MSG_NO_URL=URL não fornecida."
     set "MSG_SKIP_URL=Pulando configurção de URL."
-    set "MSG_NEEDS_URL=Essa aplicacao precisa de uma URL para abrir no navegador?"
-    set "MSG_NEEDS_URL_TITLE=Configuracao"
+    set "MSG_NEEDS_URL=Essa aplicação precisa de uma URL para abrir no navegador?"
+    set "MSG_NEEDS_URL_TITLE=Configuração"
     set "MSG_URL_PROMPT=Digite a URL:"
     set "MSG_URL_TITLE=URL"
     set "MSG_DEFAULT_URL=http://localhost:8080"
@@ -52,7 +52,7 @@ if "%IDIOMA%"=="PT" (
     set "MSG_DELAY_TITLE=Tempo de Inicializacao"
     set "MSG_DELAY_DEFAULT=10"
     set "MSG_INVALID_DELAY=Entrada inválida. Digite apenas um número inteiro."
-    set "MSG_INVALID_DELAY_TITLE=Erro de Validacao"
+    set "MSG_INVALID_DELAY_TITLE=Erro de Validação"
 ) else (
     set "MSG_CANCELLED=User canceled the selection."
     set "MSG_FILE_CHOSEN=File chosen: "
