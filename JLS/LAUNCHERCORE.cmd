@@ -6,7 +6,9 @@
 @echo off
 setlocal enabledelayedexpansion
 
-for /f "tokens=2 delims=: %%a in ('chcp') do set "original_cp=%%a"
+for /f "tokens=* delims=" %%a in ('chcp') do (
+    for %%b in (%%a) do set "original_cp=%%b"
+)
 
 chcp 65001 > nul
 
