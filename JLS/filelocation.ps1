@@ -8,7 +8,7 @@ Add-Type -AssemblyName System.Windows.Forms
 
 # Configura a janela de seleção
 $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog
-$FileBrowser.Filter = "Java (*.java;*.jar)|*.java;*.jar"
+$FileBrowser.Filter = "Java (*.jar)|*.jar"
 $FileBrowser.Title  = "Java APP"
 $FileBrowser.CheckFileExists = $true
 $FileBrowser.ValidateNames   = $true

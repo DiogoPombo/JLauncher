@@ -6,6 +6,8 @@
 @echo off
 setlocal enabledelayedexpansion
 
+set "APPNM=JLauncher"
+
 for /f "tokens=* delims=" %%a in ('chcp') do (
     for %%b in (%%a) do set "original_cp=%%b"
 )
@@ -55,6 +57,8 @@ if "%IDIOMA%"=="PT" (
     set "MSG_DELAY_DEFAULT=10"
     set "MSG_INVALID_DELAY=Entrada inválida. Digite apenas um número inteiro."
     set "MSG_INVALID_DELAY_TITLE=Erro de Validação"
+    set "MSG_WELCOME=Bem-vindo ao JLauncher, seu launcher simplificado para aplicações Java."
+    set "MSG_PLS_SELECT=Por favor, selecione um arquivo .jar."
 ) else (
     set "MSG_CANCELLED=User canceled the selection."
     set "MSG_FILE_CHOSEN=File chosen: "
@@ -74,10 +78,11 @@ if "%IDIOMA%"=="PT" (
     set "MSG_DELAY_DEFAULT=10"
     set "MSG_INVALID_DELAY=Invalid input. Please enter an integer number only."
     set "MSG_INVALID_DELAY_TITLE=Validation Error"
+    set "MSG_WELCOME=Welcome to JLauncher, your simplified launcher for Java applications."
+    set "MSG_PLS_SELECT=Please select a .jar file."
 )
 
 :start
-set "APPNM=JLauncher"
 @title %APPNM%
 
 set "DELAY_SECONDS=10"
@@ -90,6 +95,7 @@ set "APP_URL="
 set "CONFIG_FILE=arquivo_selecionado.txt"
 set "NAME_FILE=nome_jar.txt"
 set "URL_FILE=url_config.txt"
+set "SPACE= "
 
 if exist "%CONFIG_FILE%" (
     set /p JAVA_FILE_PATH=<"%CONFIG_FILE%"
@@ -102,6 +108,17 @@ if exist "%CONFIG_FILE%" (
 )
 
 :SelecionarArquivo
+cls
+set "APPNM=JLauncher"
+COLOR 0B
+echo.
+echo.
+echo %SPACE%%SPACE%%SPACE%**************************%SPACE%%APPNM%%SPACE%**************************
+echo.
+echo %SPACE%%MSG_WELCOME%
+echo.
+echo %SPACE%%MSG_PLS_SELECT%
+echo.
 powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -STA -File "%ps1script%"
 if not exist "%CONFIG_FILE%" (
     echo %MSG_CANCELLED%
@@ -204,6 +221,7 @@ if not exist "%JAVA_FILE_PATH%" (
     del "%CONFIG_FILE%" 2>nul
     del "%NAME_FILE%" 2>nul
     del "%URL_FILE%" 2>nul
+    timeout /t 5 /nobreak >nul
     call :SelecionarArquivo
     goto start
 )
@@ -319,7 +337,7 @@ if "%1"=="-m" (
     COLOR 0B
 )
 
-set "LINE=************************** %APPNM% **************************"
+set "LINE=**************************%SPACE%%APPNM%%SPACE%**************************"
 set "LENLINE=0"
 for /l %%i in (0,1,200) do (
     if "!LINE:~%%i,1!"=="" (
