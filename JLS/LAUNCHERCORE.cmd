@@ -39,7 +39,7 @@ if /i "%LANG_PREFIX%"=="pt" (
 )
 
 if "%IDIOMA%"=="PT" (
-    set "MSG_CANCELLED=Usuario cancelou a seleção."
+    set "MSG_CANCELLED=Usuário cancelou a seleção."
     set "MSG_FILE_CHOSEN=Arquivo escolhido: "
     set "MSG_NO_URL=URL não fornecida."
     set "MSG_SKIP_URL=Pulando configurção de URL."
@@ -53,7 +53,7 @@ if "%IDIOMA%"=="PT" (
     set "MSG_ANOTHER_LAUNCH=Deseja selecionar outro arquivo?"
     set "prompt=Insira uma URL"
     set "MSG_DELAY_PROMPT=Quantos segundos leva para a aplicação subir?"
-    set "MSG_DELAY_TITLE=Tempo de Inicializacao"
+    set "MSG_DELAY_TITLE=Tempo de Inicializção"
     set "MSG_DELAY_DEFAULT=10"
     set "MSG_INVALID_DELAY=Entrada inválida. Digite apenas um número inteiro."
     set "MSG_INVALID_DELAY_TITLE=Erro de Validação"
