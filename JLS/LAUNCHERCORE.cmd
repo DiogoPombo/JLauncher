@@ -359,7 +359,10 @@ start "" /b java -jar "%JAVA_FILE_PATH%"
 timeout /t %DELAY_SECONDS% /nobreak >nul
 
 if not "!APP_URL!"=="" (
-    start "" "!APP_URL!"
+    start "%APPNM%" "msedge" --app="!APP_URL!"
+        if not %errorlevel%==0 (
+            start "" "!APP_URL!"
+    )
 )
 
 :end
