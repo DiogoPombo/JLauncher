@@ -236,7 +236,7 @@ if "%1"=="-s" (
 wscript.exe "%SOM%"
 
 
-set colors2=F0
+set colors2=F7 F8 F0
 set colors=00 80 70 F0
 
 timeout /t 0 /nobreak >nul
