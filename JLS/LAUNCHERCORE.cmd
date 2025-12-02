@@ -17,9 +17,7 @@ chcp 65001 > nul
 set MODE=%1
 shift
 
-
 goto :main
-
 
 :pause_zero
 if "%MODE%"=="-win11" (
@@ -235,7 +233,6 @@ if "%1"=="-s" (
 @title %APPNM%
 wscript.exe "%SOM%"
 
-
 set colors2=F0
 set colors=00 80 70 F0
 
@@ -302,7 +299,6 @@ for %%c in (%colors2%) do (
 
     call :pause_zero
 )
-
 
 if "%MODE%"=="-win11" (
     timeout /t 4 /nobreak >nul
