@@ -1,9 +1,12 @@
 JLauncher ☕🚀
+
 A friendly, interactive launcher for Java applications on Windows.
+
 Windows
 Java
 Batch
 PowerShell
+
 
 ✨ What is JLauncher?
 JLauncher is a unified launcher for Java applications on Windows, built using Batch Script, PowerShell, and a touch of VBS for sound effects.
@@ -12,6 +15,7 @@ Perfect for:
 - Users who don’t want to type commands
 - Developers distributing Java apps
 - Anyone who wants a clean, automated way to run .jar files
+
 
 ✨ Features
 - 🖱️ Interactive .jar selection via graphical PowerShell dialog
@@ -23,6 +27,7 @@ Perfect for:
 - 🛑 Robust error handling (missing Java, missing JAR, cancellation, etc.)
 - 🔊 Sound effects using VBS scripts
 - ⚙️ Multiple launch modes (-s, -m, -b, etc.)
+
 
 📂 Project Structure
 JLauncher/
@@ -39,6 +44,7 @@ JLauncher/
 
 
 
+
 ▶️ How to Use
 - Run JLauncher.cmd
 - On the first launch:
@@ -50,19 +56,23 @@ JLauncher/
 java -jar YourFile.jar
 - If a URL was configured, it will open automatically in your browser
 
+
 ⚙️ Requirements
 - Windows 10 or 11
 - Java installed and available in PATH
 - PowerShell enabled
 - Permission to run scripts (ExecutionPolicy bypass is handled automatically)
 
+
 📜 License
 Developed by Diogo Santos Pombo — © 2025
 Feel free to use, modify, and improve.
 
+
 💡 Why JLauncher?
 Because not every user wants to type:
 java -jar myapp.jar
+
 
 
 And because Java apps deserve a friendly launcher, not a cryptic command line.
