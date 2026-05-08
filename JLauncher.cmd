@@ -7,6 +7,8 @@
 
 setlocal enabledelayedexpansion
 
+color 07
+
 java -version >nul 2>&1
 if not %errorlevel%==0 (
     COLOR 0C
@@ -53,14 +55,6 @@ if "%1"=="-s" (
     call "%LAUNCHERCORE%" %VERSION_PARAM% -s
 ) else if "%1"=="-S" (
     call "%LAUNCHERCORE%" %VERSION_PARAM% -S
-) else if "%1"=="-m" (
-    call "%LAUNCHERCORE%" %VERSION_PARAM% -m
-) else if "%1"=="-M" (
-    call "%LAUNCHERCORE%" %VERSION_PARAM% -M
-) else if "%1"=="-b" (
-    call "%LAUNCHERCORE%" %VERSION_PARAM% -b
-) else if "%1"=="-B" (
-    call "%LAUNCHERCORE%" %VERSION_PARAM% -B
 ) else (
     call "%LAUNCHERCORE%" %VERSION_PARAM%
 )

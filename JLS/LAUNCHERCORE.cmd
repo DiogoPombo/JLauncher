@@ -5,6 +5,7 @@
 
 @echo off
 setlocal enabledelayedexpansion
+color 07
 
 set "APPNM=JLauncher"
 
@@ -89,6 +90,7 @@ set "BASE=%~dp0"
 set "SOM=%BASE%play.vbs"
 set "SOM2=%BASE%play2.vbs"
 set "ps1script=%BASE%filelocation.ps1"
+set "UTOPIA_PS=%BASE%Utopia.ps1
 set "APP_URL="
 set "CONFIG_FILE=arquivo_selecionado.txt"
 set "NAME_FILE=nome_jar.txt"
@@ -323,16 +325,6 @@ call :pause_zero
 color 07
 echo.
 
-if "%1"=="-m" (
-    COLOR 0A
-) else if "%1"=="-M" (
-    COLOR 0A
-) else if "%1"=="-b" (
-    COLOR 0B
-) else if "%1"=="-B" (
-    COLOR 0B
-)
-
 set "LINE=**************************%SPACE%%APPNM%%SPACE%**************************"
 set "LENLINE=0"
 for /l %%i in (0,1,200) do (
@@ -351,7 +343,7 @@ echo !SPACES2!!LINE!
 :silent
 @title %APPNM%
 chcp %original_cp% >nul
-start "" /b java -jar "%JAVA_FILE_PATH%"
+start "" /b cmd /c "java -jar "%JAVA_FILE_PATH%" 2>&1 | powershell -NoProfile -ExecutionPolicy Bypass -File "%UTOPIA_PS%""
 timeout /t %DELAY_SECONDS% /nobreak >nul
 
 if not "!APP_URL!"=="" (
