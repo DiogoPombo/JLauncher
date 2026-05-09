@@ -26,22 +26,7 @@ Perfect for:
 - 🎨 Console animations, banners, and color effects
 - 🛑 Robust error handling (missing Java, missing JAR, cancellation, etc.)
 - 🔊 Sound effects using VBS scripts
-- ⚙️ Multiple launch modes (-s, -m, -b, etc.)
-
-
-📂 Project Structure
-JLauncher/
- ├── JLauncher.cmd           # Main script
- ├── LAUNCHERCORE.cmd        # Core execution logic
- ├── filelocation.ps1        # PowerShell file selector
- ├── play.vbs                # Sound effect
- ├── play2.vbs               # Sound effect
- ├── arquivo_selecionado.txt # Last selected .jar path
- ├── nome_jar.txt            # Last executed .jar name
- ├── url_config.txt          # Saved URL (optional)
- ├── delay_seconds.txt       # Browser startup delay
- └── launcher.log            # Execution logs
-
+- ⚙️ Silent launch mode (-S)
 
 
 
@@ -72,7 +57,6 @@ Feel free to use, modify, and improve.
 💡 Why JLauncher?
 Because not every user wants to type:
 java -jar myapp.jar
-
 
 
 And because Java apps deserve a friendly launcher, not a cryptic command line.
