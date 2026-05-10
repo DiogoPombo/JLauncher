@@ -50,11 +50,13 @@ java -jar YourFile.jar
 
 
 📜 License
+
 Developed by Diogo Santos Pombo — © 2025
 Feel free to use, modify, and improve.
 
 
 💡 Why JLauncher?
+
 Because not every user wants to type:
 java -jar myapp.jar
 
