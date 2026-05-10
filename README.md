@@ -35,7 +35,6 @@ Perfect for:
 - On the first launch:
 - Select a .jar file
 - (Optional) Enter a URL to open after startup
-- (Optional) Configure delay time
 - JLauncher saves your preferences for next time
 - Your application runs with:
 java -jar YourFile.jar
