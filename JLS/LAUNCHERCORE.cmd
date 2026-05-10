@@ -1,6 +1,6 @@
 ::--------------------------------------------::
 :: JLauncher - Unified launcher for Java apps ::
-::  Author: Diogo Santos Pombo - \Õ/ - @2025  ::
+::  Author: Diogo Santos Pombo - \Õ/ - @2026  ::
 ::--------------------------------------------::
 
 @echo off
@@ -151,7 +151,7 @@ if /I "!NEEDS_URL!"=="True" (
     ) else (
         echo !APP_URL! > "%URL_FILE%"
         :: Configurar delay se URL foi definida
-        call :ConfigurarDelay
+        ::call :ConfigurarDelay
     )
 ) else (
     echo %MSG_SKIP_URL%
@@ -341,17 +341,20 @@ for /l %%i in (1,1,%PAD2%) do set "SPACES2=!SPACES2! "
 
 echo !SPACES2!!LINE!
 :silent
+set "UTOPIA_APPNM=%APPNM%"
+set "UTOPIA_APP_URL=%APP_URL%"
+set "UTOPIA_OPENED="
 @title %APPNM%
 chcp %original_cp% >nul
 start "" /b cmd /c "java -jar "%JAVA_FILE_PATH%" 2>&1 | powershell -NoProfile -ExecutionPolicy Bypass -File "%UTOPIA_PS%""
 timeout /t %DELAY_SECONDS% /nobreak >nul
 
-if not "!APP_URL!"=="" (
-    start "%APPNM%" "msedge" --app="!APP_URL!"
-        if not %errorlevel%==0 (
-            start "" "!APP_URL!"
-    )
-)
+::if not "!APP_URL!"=="" (
+::    start "%APPNM%" "msedge" --app="!APP_URL!"
+::        if not %errorlevel%==0 (
+::            start "" "!APP_URL!"
+::    )
+::)
 
 :end
 echo.
