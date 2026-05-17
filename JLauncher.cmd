@@ -51,7 +51,11 @@ if %BUILD% GEQ 22000 (
     set "VERSION_PARAM=-win10"
 )
 
-if "%1"=="-s" (
+if "%1"=="-l" (
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -l
+) else if "%1"=="-L" (
+    call "%LAUNCHERCORE%" %VERSION_PARAM% -L
+) else if "%1"=="-s" (
     call "%LAUNCHERCORE%" %VERSION_PARAM% -s
 ) else if "%1"=="-S" (
     call "%LAUNCHERCORE%" %VERSION_PARAM% -S

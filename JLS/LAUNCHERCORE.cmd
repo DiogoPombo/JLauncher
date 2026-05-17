@@ -90,12 +90,20 @@ set "BASE=%~dp0"
 set "SOM=%BASE%play.vbs"
 set "SOM2=%BASE%play2.vbs"
 set "ps1script=%BASE%filelocation.ps1"
-set "UTOPIA_PS=%BASE%Utopia.ps1"
 set "APP_URL="
 set "CONFIG_FILE=arquivo_selecionado.txt"
 set "NAME_FILE=nome_jar.txt"
 set "URL_FILE=url_config.txt"
 set "SPACE= "
+set "UTOPIA_PS=%BASE%Utopia.ps1"
+set "UTOPIAL_PS=%BASE%UtopiaLight.ps1"
+if "%1"=="-l" (
+    set PS_SCRIPT=%UTOPIAL_PS%
+) else if "%1"=="-L" (
+    set PS_SCRIPT=%UTOPIAL_PS%
+) else (
+    set PS_SCRIPT=%UTOPIA_PS%
+)
 
 if exist "%CONFIG_FILE%" (
     set /p JAVA_FILE_PATH=<"%CONFIG_FILE%"
@@ -323,6 +331,11 @@ call :pause_zero
 call :pause_zero
 call :pause_zero
 color 07
+if "%1"=="-l" (
+    color F0
+) else if "%1"=="-L" (
+    color F0
+)
 echo.
 
 set "LINE=**************************%SPACE%%APPNM%%SPACE%**************************"
@@ -346,7 +359,7 @@ set "UTOPIA_APP_URL=%APP_URL%"
 set "UTOPIA_OPENED="
 @title %APPNM%
 chcp %original_cp% >nul
-start "" /b cmd /c "java -jar "%JAVA_FILE_PATH%" 2>&1 | powershell -NoProfile -ExecutionPolicy Bypass -File "%UTOPIA_PS%""
+start "" /b cmd /c "java -jar "%JAVA_FILE_PATH%" 2>&1 | powershell -NoProfile -ExecutionPolicy Bypass -File "%PS_SCRIPT%""
 timeout /t %DELAY_SECONDS% /nobreak >nul
 
 ::if not "!APP_URL!"=="" (
