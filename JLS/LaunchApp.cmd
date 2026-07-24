@@ -17,10 +17,10 @@ if not %errorlevel%==0 (
 :MAIN
 :: Configurações
 set "BASE=%~dp0"
-set "JAVA_FILE_PATH=%BASE%..\target\file.jar"
-set "APP_URL=http://localhost:8080/"
+set "JAVA_FILE_PATH=%BASE%..\target\Caixa-0.0.1-SNAPSHOT.jar"
+set "APP_URL=http://localhost:55555/"
 
-netstat -ano | findstr /R /C:":8080 .*LISTENING" >nul 2>&1
+netstat -ano | findstr /R /C:":55555 .*LISTENING" >nul 2>&1
 
 if %errorlevel% equ 0 (
     goto :OPEN_BROWSER

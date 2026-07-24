@@ -18,8 +18,8 @@ if not %errorlevel%==0 (
 
 :: Configurações
 set "BASE=%~dp0"
-set "JAVA_FILE_PATH=%BASE%..\target\file.jar"
-set "APP_URL=http://localhost:8080/"
+set "JAVA_FILE_PATH=%BASE%..\target\Caixa-0.0.1-SNAPSHOT.jar"
+set "APP_URL=http://localhost:55555/"
 
 start "" javaw -jar "%JAVA_FILE_PATH%"
 
